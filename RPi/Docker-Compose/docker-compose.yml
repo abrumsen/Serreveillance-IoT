@@ -1,0 +1,57 @@
+################################################################################
+# Node-RED, MongoDB, Mosquitto  for IoT Project
+################################################################################
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "1880:1880"
+    networks:
+      node-red-net:
+        ipv4_address: 192.168.1.10
+    volumes:
+      - node-red-data:/data
+    depends_on:
+      - mongodb
+      - mosquitto
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      node-red-net:
+        ipv4_address: 192.168.1.11
+    volumes:
+      - mongo-data:/data/db
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"  # Optional WebSocket port
+    networks:
+      node-red-net:
+        ipv4_address: 192.168.1.12
+    volumes:
+      - ./mosquitto:/etc/mosquitto
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+volumes:
+  node-red-data:
+  mongo-data:
+  mosquitto-data:
+  mosquitto-log:
+
+networks:
+  node-red-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+           
