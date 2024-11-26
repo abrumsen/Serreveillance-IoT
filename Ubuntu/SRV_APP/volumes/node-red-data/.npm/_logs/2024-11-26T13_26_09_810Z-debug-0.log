@@ -1,0 +1,41 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.8.2
+2 info using node@v20.18.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/data/.npmrc
+5 silly config load:file:/usr/src/node-red/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm install node-red-contrib-mongodb4@2.5.2
+8 verbose argv "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix" "~" "--omit" "dev" "--engine-strict" "node-red-contrib-mongodb4@2.5.2"
+9 verbose logfile logs-max:10 dir:/data/.npm/_logs/2024-11-26T13_26_09_810Z-
+10 verbose logfile /data/.npm/_logs/2024-11-26T13_26_09_810Z-debug-0.log
+11 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+12 silly logfile done cleaning log files
+13 silly idealTree buildDeps
+14 silly fetch manifest node-red-contrib-mongodb4@2.5.2
+15 silly packumentCache full:https://registry.npmjs.org/node-red-contrib-mongodb4 cache-miss
+16 http fetch GET https://registry.npmjs.org/node-red-contrib-mongodb4 attempt 1 failed with EAI_AGAIN
+17 http fetch GET https://registry.npmjs.org/node-red-contrib-mongodb4 attempt 2 failed with EAI_AGAIN
+18 http fetch GET https://registry.npmjs.org/node-red-contrib-mongodb4 attempt 3 failed with EAI_AGAIN
+19 silly placeDep ROOT node-red-contrib-mongodb4@ OK for: node-red-project@0.0.1 want: 2.5.2
+20 verbose type system
+21 verbose stack FetchError: request to https://registry.npmjs.org/node-red-contrib-mongodb4 failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org
+21 verbose stack     at ClientRequest.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/minipass-fetch/lib/index.js:130:14)
+21 verbose stack     at ClientRequest.emit (node:events:519:28)
+21 verbose stack     at emitErrorEvent (node:_http_client:101:11)
+21 verbose stack     at _destroy (node:_http_client:884:9)
+21 verbose stack     at onSocketNT (node:_http_client:904:5)
+21 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+22 error code EAI_AGAIN
+23 error syscall getaddrinfo
+24 error errno EAI_AGAIN
+25 error request to https://registry.npmjs.org/node-red-contrib-mongodb4 failed, reason: getaddrinfo EAI_AGAIN registry.npmjs.org
+26 silly unfinished npm timer reify 1732627569970
+27 silly unfinished npm timer reify:loadTrees 1732627569971
+28 verbose cwd /data
+29 verbose os Linux 6.12.1-arch1-1
+30 verbose node v20.18.0
+31 verbose npm  v10.8.2
+32 verbose exit 1
+33 verbose code 1
+34 error A complete log of this run can be found in: /data/.npm/_logs/2024-11-26T13_26_09_810Z-debug-0.log

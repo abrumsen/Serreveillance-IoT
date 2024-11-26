@@ -1,0 +1,1025 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Database Collection",
+        "disabled": false,
+        "info": "Get Data From Mosquitto and send them to the DB"
+    },
+    {
+        "id": "22cf85e866f2544a",
+        "type": "tab",
+        "label": "Read DB",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "51b7579215117783",
+        "type": "tab",
+        "label": "API",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7c94e96d8bb98ca3",
+        "type": "tab",
+        "label": "User Ui",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "273291990701e3e2",
+        "type": "mqtt-broker",
+        "name": "test.mosquitto.org",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "Testing Ground",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fc6ef9652b916e41",
+        "type": "mqtt-broker",
+        "name": "Docker Broker",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "GoodMusic",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "21dc0fbd8321f4d5",
+        "type": "mongodb4-client",
+        "name": "Local DB",
+        "protocol": "mongodb",
+        "hostname": "mongodb",
+        "port": "",
+        "dbName": "MQTT-Data",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-simple"
+    },
+    {
+        "id": "8023fc7e9574e06c",
+        "type": "ui_group",
+        "name": "User Ui",
+        "tab": "125ac40df413a01a",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "125ac40df413a01a",
+        "type": "ui_tab",
+        "name": "User",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "7f71ca06a931a0b3",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "fb7f5c2eb4d00b60",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "TEST.MOSQUITTO.ORG",
+        "topic": "GoodMusic",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "273291990701e3e2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 320,
+        "wires": [
+            [
+                "37f84f65aa518d6d"
+            ]
+        ]
+    },
+    {
+        "id": "1d5e03c694107104",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Task",
+        "info": "# Objectifs NodeRed\n \n1. Get test.mosquitto.org Message\n2. Get Personal mosquitto broker Message\n3. Save data to the MongoDB database\n4. Read Data from the MongoDB database\n5. API to OpenWeather\n6. API to Shodan\n7. API to Webex\n8. API to Twilo\n9. API to Sendgrid\n\nAFTER:\nSecure ALL\n - Certi for MQTT \n - Creds for DB ",
+        "x": 150,
+        "y": 80,
+        "wires": [],
+        "icon": "node-red/alert.svg"
+    },
+    {
+        "id": "8aa4d51b76299e2a",
+        "type": "mongodb4",
+        "z": "f6f2187d.f17ca8",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 880,
+        "y": 360,
+        "wires": [
+            [
+                "61e793893e186c94"
+            ]
+        ]
+    },
+    {
+        "id": "61e793893e186c94",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f56b358ccee2400b",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Private Broker",
+        "topic": "LocalMusic",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "fc6ef9652b916e41",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "1ad06a073ac07574"
+            ]
+        ]
+    },
+    {
+        "id": "37f84f65aa518d6d",
+        "type": "change",
+        "z": "f6f2187d.f17ca8",
+        "name": "Get MQTT-Data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"msg\": msg.payload,\"client\":\"Bob\"}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "collection",
+                "pt": "msg",
+                "to": "RASP-STATS",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "operation",
+                "pt": "msg",
+                "to": "insertOne",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "8aa4d51b76299e2a"
+            ]
+        ]
+    },
+    {
+        "id": "1ad06a073ac07574",
+        "type": "template",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "This is the payload: {{payload}} !",
+        "output": "str",
+        "x": 460,
+        "y": 420,
+        "wires": [
+            [
+                "37f84f65aa518d6d"
+            ]
+        ]
+    },
+    {
+        "id": "70f0823a343e34cb",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "551b88471b98b76a",
+        "type": "mongodb4",
+        "z": "f6f2187d.f17ca8",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 1020,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8472150f8b4c8653",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "JSON-SENSORS",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Data\":{\"Client\":\"Bob\",\"UserID\":\"00000001\",\"Date\":\"DD-MM-YYYY HH:MM\",\"Sensors\":{\"Temp\":\"25\",\"Humidity\":\"45\",\"Light\":\"20\",\"GPS\":\"(500,230)\"},\"Door\":true}}",
+        "payloadType": "json",
+        "x": 320,
+        "y": 720,
+        "wires": [
+            [
+                "5fa4e71a7eb79b4d"
+            ]
+        ]
+    },
+    {
+        "id": "5fa4e71a7eb79b4d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Format Sensors Data",
+        "func": "// Access the incoming message payload\nlet data = msg.payload;\nlet table = msg.collection\nlet query = msg.operation\n\n// Check if the \"Date\" field exists and update it to the current date\nif (data.Data) {\n    // Format the current date as \"DD-MM-YYYY HH:MM\"\n    let now = new Date();\n    let formattedDate = now.toLocaleString(\"en-GB\", {\n        day: \"2-digit\",\n        month: \"2-digit\",\n        year: \"numeric\",\n        hour: \"2-digit\",\n        minute: \"2-digit\",\n        hour12: false\n    });\n\n    // Set the \"Date\" field to the formatted current date\n    data.Data.Date = formattedDate;\n}\n\n    let now = new Date();\n    data.Data.Date = now;\n\ntable = \"RASP-STATS\"\nquery = \"insertOne\"\n\n// Return the modified message\nmsg.collection = table\nmsg.operation = query\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 720,
+        "wires": [
+            [
+                "70f0823a343e34cb",
+                "551b88471b98b76a"
+            ]
+        ]
+    },
+    {
+        "id": "401e5e137bb0767e",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "ESP-JSON-SENSORS",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"Data\":{\"Client\":\"Bob\",\"UserID\":\"00000001\",\"Date\":\"DD-MM-YYYY HH:MM\",\"Sensors\":{\"Temp\":\"25\",\"Humidity\":\"45\",\"Light\":\"20\",\"GPS\":\"(500,230)\"},\"Door\":true}}",
+        "payloadType": "json",
+        "x": 340,
+        "y": 640,
+        "wires": [
+            [
+                "5fa4e71a7eb79b4d"
+            ]
+        ]
+    },
+    {
+        "id": "0f48b345216c667c",
+        "type": "mongodb4",
+        "z": "22cf85e866f2544a",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 520,
+        "y": 200,
+        "wires": [
+            [
+                "f5768b504fd425bd"
+            ]
+        ],
+        "info": "Example of query\n\ndb[\"RASP-STATS\"].findOne(\n  { \"Data.UserID\": \"00000001\" },       // Query filter\n  { sort: { \"Data.Date\": -1 } }        // Sort by Date in descending order\n);\n\n"
+    },
+    {
+        "id": "4aa3bb6312e5359e",
+        "type": "inject",
+        "z": "22cf85e866f2544a",
+        "name": "",
+        "props": [
+            {
+                "p": "UserID",
+                "v": "\"00000001\"",
+                "vt": "jsonata"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "0396c7a9ae73ed10"
+            ]
+        ]
+    },
+    {
+        "id": "0396c7a9ae73ed10",
+        "type": "function",
+        "z": "22cf85e866f2544a",
+        "name": "function 4",
+        "func": "// Access the incoming message payload\nlet userID = msg.UserID\n\n// Set new Data in msg\nlet table = msg.collection\nlet action = msg.operation\nlet show = msg.projection\n\n\n\n// find query argument\nconst query = {\n    \"Data.UserID\": userID,\n};\n// find option argument\nconst options = {\n    sort: {\"Data.Date\": -1},\n    //projection: {\"Data.Client\": 1},\n    //limit: 10,\n    //skip: 2\n};\n\ntable = \"RASP-STATS\"\naction = \"findOne\"\n\n// Return the modified message\nmsg.payload = [query, options];\nmsg.collection = table\nmsg.operation = action\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "0f48b345216c667c"
+            ]
+        ]
+    },
+    {
+        "id": "f5768b504fd425bd",
+        "type": "debug",
+        "z": "22cf85e866f2544a",
+        "name": "Read DB - DEBUG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e93669ddf8e3f90a",
+        "type": "inject",
+        "z": "51b7579215117783",
+        "name": "Auto API Send",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iso",
+        "payloadType": "date",
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "b9eb106a5cae3c1a"
+            ]
+        ]
+    },
+    {
+        "id": "acaa8f62a1d7f90f",
+        "type": "debug",
+        "z": "51b7579215117783",
+        "name": "Our API DEBUG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b9eb106a5cae3c1a",
+        "type": "http request",
+        "z": "51b7579215117783",
+        "name": "Flask API Request",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://10.43.29.35:5000/system_usage",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "acaa8f62a1d7f90f",
+                "c0442b8c890bd489"
+            ]
+        ]
+    },
+    {
+        "id": "c0442b8c890bd489",
+        "type": "mongodb4",
+        "z": "51b7579215117783",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 580,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b3b320f715cc075",
+        "type": "inject",
+        "z": "51b7579215117783",
+        "name": "Auto API Send",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iso",
+        "payloadType": "date",
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "343a93c245267a9c"
+            ]
+        ]
+    },
+    {
+        "id": "3d0b8cbf5d1f5cf5",
+        "type": "debug",
+        "z": "51b7579215117783",
+        "name": "SHODAN DEBUG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "343a93c245267a9c",
+        "type": "http request",
+        "z": "51b7579215117783",
+        "name": "SHODAN API Request",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.shodan.io",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "3d0b8cbf5d1f5cf5",
+                "36e92533f406d2aa"
+            ]
+        ],
+        "info": "https://developer.shodan.io/api"
+    },
+    {
+        "id": "36e92533f406d2aa",
+        "type": "mongodb4",
+        "z": "51b7579215117783",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 580,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a327af21ca33c15",
+        "type": "inject",
+        "z": "51b7579215117783",
+        "name": "Auto API Send",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "iso",
+        "payloadType": "date",
+        "x": 140,
+        "y": 660,
+        "wires": [
+            [
+                "9d855227053975cb"
+            ]
+        ]
+    },
+    {
+        "id": "1f0d1cf87c2dc433",
+        "type": "debug",
+        "z": "51b7579215117783",
+        "name": "OpenWeather DEBUG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "9d855227053975cb",
+        "type": "http request",
+        "z": "51b7579215117783",
+        "name": "OpenWeather API Request",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 400,
+        "y": 660,
+        "wires": [
+            [
+                "1f0d1cf87c2dc433",
+                "7f79ed67a2bf9482"
+            ]
+        ],
+        "info": "https://developer.shodan.io/api"
+    },
+    {
+        "id": "7f79ed67a2bf9482",
+        "type": "mongodb4",
+        "z": "51b7579215117783",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 580,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2d0b6d5dc813cd7",
+        "type": "mongodb4",
+        "z": "7c94e96d8bb98ca3",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "3505911befc704a3",
+                "05e3b73e1c3ad3e1"
+            ]
+        ],
+        "info": "Example of query\n\ndb[\"RASP-STATS\"].findOne(\n  { \"Data.UserID\": \"00000001\" },       // Query filter\n  { sort: { \"Data.Date\": -1 } }        // Sort by Date in descending order\n);\n\n"
+    },
+    {
+        "id": "90cce5e1dbcfb91e",
+        "type": "ui_text",
+        "z": "7c94e96d8bb98ca3",
+        "group": "8023fc7e9574e06c",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Client",
+        "label": "User :",
+        "format": "Welcome {{msg.client}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 990,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3505911befc704a3",
+        "type": "debug",
+        "z": "7c94e96d8bb98ca3",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "3f328bed1b4ae49a",
+        "type": "inject",
+        "z": "7c94e96d8bb98ca3",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\t    \"query\": { \"Data.UserID\": \"00000001\" }\t}",
+        "payloadType": "jsonata",
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "12bf274466cf664e"
+            ]
+        ]
+    },
+    {
+        "id": "12bf274466cf664e",
+        "type": "function",
+        "z": "7c94e96d8bb98ca3",
+        "name": "function 2",
+        "func": "// Access the incoming message payload\nlet table = msg.collection\nlet action = msg.operation\nlet show = msg.projection\n\n// find query argument\nconst query = {\n    \"Data.UserID\": \"00000001\",\n    \"Data.Client\": \"Bob\"\n};\n// find option argument\nconst options = {\n    sort: {\"Data.Date\": -1},\n    //projection: {\"Data.Client\": 1},\n    //limit: 10,\n    //skip: 2\n};\n\ntable = \"RASP-STATS\"\naction = \"findOne\"\n\n// Return the modified message\nmsg.payload = [query, options];\nmsg.collection = table\nmsg.operation = action\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 500,
+        "wires": [
+            [
+                "c2d0b6d5dc813cd7"
+            ]
+        ]
+    },
+    {
+        "id": "05e3b73e1c3ad3e1",
+        "type": "function",
+        "z": "7c94e96d8bb98ca3",
+        "name": "function 3",
+        "func": "// Access the incoming message payload\nlet data = msg.payload;\n\n// Variable use in dashboard\nlet client = String;\nlet temp = String;\nlet humi = String;\n\n\nclient = data.Data.Client\ntemp = data.Data.Sensors.Temp\nhumi = data.Data.Sensors.Humidity\n\nmsg.humi = humi\nmsg.temp = temp\nmsg.client = client\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 500,
+        "wires": [
+            [
+                "90cce5e1dbcfb91e",
+                "1829cd2afa29b903",
+                "dea088d8aa4cc587"
+            ]
+        ]
+    },
+    {
+        "id": "1829cd2afa29b903",
+        "type": "ui_gauge",
+        "z": "7c94e96d8bb98ca3",
+        "name": "Temp",
+        "group": "8023fc7e9574e06c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "compass",
+        "title": "Temperature",
+        "label": "Celsius",
+        "format": "{{msg.temp}}",
+        "min": 0,
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 990,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "dea088d8aa4cc587",
+        "type": "ui_gauge",
+        "z": "7c94e96d8bb98ca3",
+        "name": "Humi",
+        "group": "8023fc7e9574e06c",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Humidity",
+        "label": "Humidity",
+        "format": "{{msg.humi}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 990,
+        "y": 660,
+        "wires": []
+    }
+]

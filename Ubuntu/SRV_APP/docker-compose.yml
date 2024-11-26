@@ -10,10 +10,9 @@ services:
     ports:
       - "1880:1880"
     networks:
-      node-red-net:
-        ipv4_address: 192.168.1.10
+      - node-red-net
     volumes:
-      - node-red-data:/data
+      - ./volumes/node-red-data:/data
     depends_on:
       - mongodb
       - mosquitto
@@ -24,10 +23,10 @@ services:
     ports:
       - "27017:27017"
     networks:
-      node-red-net:
-        ipv4_address: 192.168.1.11
+      - node-red-net
     volumes:
-      - mongo-data:/data/db
+      - ./volumes/mongo-data:/data/db
+
 
   mosquitto:
     image: eclipse-mosquitto:latest
@@ -36,11 +35,11 @@ services:
       - "1883:1883"
       - "9001:9001"  # Optional WebSocket port
     networks:
-      node-red-net:
-        ipv4_address: 192.168.1.12
+      - node-red-net
     volumes:
-      - ./mosquitto:/etc/mosquitto
-      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./volumes/mosquitto:/etc/mosquitto
+      - ./volumes/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
 
 volumes:
   node-red-data:
@@ -51,7 +50,5 @@ volumes:
 networks:
   node-red-net:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.1.0/24
-           
+      
+

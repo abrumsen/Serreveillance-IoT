@@ -1,0 +1,604 @@
+<script type="text/javascript">
+    RED.nodes.registerType("mongodb4-client", {
+        category: "config",
+        color: "#3FA037",
+        defaults: {
+            name: { value: "" },
+            protocol: { value: "mongodb", required: true },
+            hostname: { value: "" },
+            port: { value: "" },
+            dbName: { value: "", required: true },
+            appName: { value: "" },
+            authSource: { value: "" },
+            authMechanism: { value: "DEFAULT" },
+            tls: { value: false },
+            tlsCAFile: { value: "" },
+            tlsCertificateKeyFile: { value: "" },
+            tlsInsecure: { value: false },
+            connectTimeoutMS: { value: "30000" },
+            socketTimeoutMS: { value: "0" },
+            minPoolSize: { value: "0" },
+            maxPoolSize: { value: "100" },
+            maxIdleTimeMS: { value: "0" },
+            uri: { value: "" },
+            advanced: { value: "{}" },
+            uriTabActive: { value: "tab-uri-simple" },
+        },
+        credentials: {
+            username: { value: "", type: "text" },
+            password: { value: "", type: "password" },
+            tlsCertificateKeyFilePassword: { value: "", type: "password"}
+        },
+        label: function () {
+            return this.name || `${this.hostname} ${this.dbName}`;
+        },
+        oneditprepare: function () {
+            // uri tabs
+            this.uriTabs = RED.tabs.create({
+                id: "tabs",
+                onchange: function (tab) {
+                    $("#tabs-content").children().hide();
+                    $("#" + tab.id).show();
+                },
+            });
+
+            this.uriTabs.addTab({
+                id: "tab-uri-simple",
+                label: "Simple Connection URI",
+            });
+
+            this.uriTabs.addTab({
+                id: "tab-uri-advanced",
+                label: "Advanced Connection URI",
+            });
+
+            if (this.uriTabActive) {
+                this.uriTabs.activateTab(this.uriTabActive);
+            }
+        },
+        oneditsave: function () {
+            this.uriTabActive =
+                this.uriTabs.listTabs()[this.uriTabs.activeIndex()];
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="mongodb4-client">
+    <div class="form-row">
+        <label for="node-config-input-name"
+            ><i class="fa fa-tag"></i> Name</label
+        >
+        <input type="text" id="node-config-input-name" />
+    </div>
+    <div class="form-row tabs-row">
+        <ul style="min-width: 600px; margin-bottom: 20px;" id="tabs"></ul>
+    </div>
+    <div id="tabs-content">
+        <div id="tab-uri-simple" style="display:none">
+            <div class="form-row">
+                <label for="node-config-input-protocol">
+                    <i class="fa fa-envelope-o"></i> Protocol
+                </label>
+                <select id="node-config-input-protocol">
+                    <option value="mongodb">mongodb</option>
+                    <option value="mongodb+srv">mongodb+srv</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="node-config-input-hostname">
+                    <i class="fa fa-server"></i> Hostname
+                </label>
+                <input
+                    type="text"
+                    id="node-config-input-hostname"
+                    placeholder="localhost"
+                />
+            </div>
+            <div class="form-row">
+                <label for="node-config-input-port">
+                    <i class="fa fa-plug"></i> Port
+                </label>
+                <input
+                    type="text"
+                    id="node-config-input-port"
+                    placeholder="optional"
+                />
+            </div>
+        </div>
+        <div id="tab-uri-advanced" style="display:none">
+            <div class="form-row">
+                <label for="node-config-input-uri">
+                    <i class="fa fa-bolt"></i> URI
+                </label>
+                <input
+                    type="text"
+                    id="node-config-input-uri"
+                    placeholder="mongodb://localhost:27017"
+                />
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-dbName">
+            <i class="fa fa-database"></i> Database
+        </label>
+        <input type="text" id="node-config-input-dbName" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-appName">
+            <i class="fa fa-id-card-o"></i> AppName
+        </label>
+        <input type="text" id="node-config-input-appName" placeholder="optional" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-authMechanism">
+            <i class="fa fa-key"></i> AuthMech
+        </label>
+        <select id="node-config-input-authMechanism" style="width: calc(100% - 180px);">
+            <option value="DEFAULT">DEFAULT</option>
+            <option value="SCRAM-SHA-256">SCRAM-SHA-256</option>
+            <option value="SCRAM-SHA-1">SCRAM-SHA-1</option>
+            <option value="MONGODB-CR">MONGODB-CR</option>
+            <option value="MONGODB-AWS">MONGODB-AWS</option>
+            <option value="MONGODB-X509">MONGODB-X509</option>
+            <option value="PLAIN">PLAIN</option>
+            <option value="GSSAPI">GSSAPI</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-authSource">
+            <i class="fa fa-id-card-o"></i> AuthSource
+        </label>
+        <input type="text" id="node-config-input-authSource" placeholder="optional"/>
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-username">
+            <i class="fa fa-user"></i> Username
+        </label>
+        <input type="text" id="node-config-input-username" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-password">
+            <i class="fa fa-unlock-alt"></i> Password
+        </label>
+        <input type="password" id="node-config-input-password" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-tls">
+            <i class="fa fa-handshake-o"></i> TLS
+        </label>
+        <input type="checkbox" id="node-config-input-tls" />
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-tlsInsecure">
+            <i class="fa fa-ban"></i> TLS-Insecure
+        </label>
+        <input type="checkbox" id="node-config-input-tlsInsecure" />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-tlsCAFile"
+            style="width: 200px;"
+        >
+            <i class="fa fa-certificate"></i> TLS CA File
+        </label>
+        <input
+            type="text"
+            id="node-config-input-tlsCAFile"
+            placeholder="path to CA certificate file"
+            style="width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-tlsCertificateKeyFile"
+            style="width: 200px;"
+        >
+            <i class="fa fa-certificate"></i> TLS Cert Key File
+        </label>
+        <input
+            type="text"
+            id="node-config-input-tlsCertificateKeyFile"
+            placeholder="path to the client pem certificate file"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-tlsCertificateKeyFilePassword"
+            style="width: 200px;"
+        >
+            <i class="fa fa-certificate"></i> TLS Cert Key File Pass
+        </label>
+        <input
+            type="password"
+            id="node-config-input-tlsCertificateKeyFilePassword"
+            placeholder="****"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-connectTimeoutMS"
+            style="width: 200px;"
+        >
+            <i class="fa fa-clock-o"></i> ConnectTimeoutMS
+        </label>
+        <input
+            id="node-config-input-connectTimeoutMS"
+            type="number"
+            min="0"
+            placeholder="30000"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-socketTimeoutMS"
+            style="width: 200px;"
+        >
+            <i class="fa fa-clock-o"></i> SocketTimeoutMS
+        </label>
+        <input
+            id="node-config-input-socketTimeoutMS"
+            type="number"
+            min="0"
+            placeholder="0"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-minPoolSize"
+            style="width: 200px;"
+        >
+            <i class="fa fa-clock-o"></i> MinPoolSize
+        </label>
+        <input
+            id="node-config-input-minPoolSize"
+            type="number"
+            min="0"
+            placeholder="0"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-maxPoolSize"
+            style="width: 200px;"
+        >
+            <i class="fa fa-clock-o"></i> MaxPoolSize
+        </label>
+        <input
+            id="node-config-input-maxPoolSize"
+            type="number"
+            min="0"
+            placeholder="100"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-maxIdleTimeMS"
+            style="width: 200px;"
+        >
+            <i class="fa fa-clock-o"></i> MaxIdleTimeMS
+        </label>
+        <input
+            id="node-config-input-maxIdleTimeMS"
+            type="number"
+            min="0"
+            placeholder="0"
+            style="max-width:calc(100% - 210px);"
+        />
+    </div>
+    <div class="form-row">
+        <label
+            for="node-config-input-advanced"
+            style="width: 200px;"
+        >
+            <i class="fa fa-cogs"></i> More Options (JSON)
+        </label>
+        <input
+            id="node-config-input-advanced"
+            type="text"
+            style="max-width:calc(100% - 210px);"
+            />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="mongodb4-client">
+Configuration node for MongoDB connection config.
+Node will create a MongoDB Client.
+
+### Simple Connection URI
+
+-   **Protocol** - `mongodb` or `mongodb+srv`
+
+-   **Hostname** - Hostname / IP to connect to MongoDB
+
+-   **Port** - Optional port number. In most cases `27017`.
+
+### Advanced Connection URI
+
+-   **URI** - Define your own connection string in URI format.
+    [Read the docs: Connection String in URI Format](https://docs.mongodb.com/manual/reference/connection-string/)
+
+### Authentication (optional)
+
+-   **Username** - Username for authentication.
+
+-   **Password** - Password for authentication.
+
+-   **AuthMech** - Specify the authentication mechanism that MongoDB will use to authenticate the connection. This will only be used in combination with username and password.
+
+-   **AuthSource** - Specify the database name associated with the user’s credentials.
+
+### Application
+
+-   **Database** - A MongoDB database name is required.
+
+-   **Application Name** - The name of the application that created this MongoClient instance. MongoDB 3.4 and newer will print this value in the server log upon establishing each connection. It is also recorded in the slow query log and profile collections.
+
+If this field is unspecified, the client node will create a app name for you.
+That looks like this: `nodered-azmr5z97`. The prefix `nodered` is static. `azmr5z97` is a random connection pool id, created on runtime start-up, config-node update and full deployment.
+
+The current app name of a config node is logged to the node-red runtime log.
+
+Check the current db connections with this query:
+```js
+db.currentOp(true).inprog.reduce((accumulator, connection) => {
+    const appName = connection.appName || "unknown";
+    accumulator[appName] = (accumulator[appName] || 0) + 1;
+    accumulator.totalCount ++;
+    return accumulator;
+    }, {totalCount: 0})
+```
+
+### TLS (optional)
+
+-   **TLS CA File (path)** - Specifies the location of a local .pem file that contains the root certificate chain from the Certificate Authority. This file is used to validate the certificate presented by the mongod/mongos instance.
+
+-   **TLS Certificate Key File (path)** - Specifies the location of a local .pem file that contains either the client's TLS/SSL certificate and key or only the client's TLS/SSL key when tlsCertificateFile is used to provide the certificate.
+
+-   **TLS Certificate Key Filepassword (string)** - Specifies the password to de-crypt the TLS certificate.
+
+-   **TLS-Insecure** - Disables various certificate validations. THIS IS REALLY NOT SECURE.
+
+### Connect Options
+
+-   **ConnectTimeoutMS** - Specifies the amount of time, in milliseconds, to wait to establish a single TCP socket connection to the server before raising an error.
+
+-   **SocketTimeoutMS** - To make sure that the driver correctly closes the socket in these cases, set the SocketTimeoutMS option. When a MongoDB process times out, the driver will close the socket. We recommend that you select a value for socketTimeoutMS that is two to three times as long as the expected duration of the slowest operation that your application executes.
+
+If you set the value of ConnectTimeoutMS or SocketTimeoutMS to 0, your application will use the operating system's default socket timeout value.
+
+-   **MinPoolSize / MaxPoolsize** - Specifies the minimun and maximum number of connections the driver should create in its connection pool. This count includes connections in use.
+
+-   **MaxIdleTimeMS** - Specifies the amount of time, in milliseconds, a connection can be idle before it's closed. Specifying 0 means no minimum.
+
+### More Options
+
+-   **Options (JSON)** - MongoDB Driver 4 MongoClient supports more options. Feel free to overwrite all client options with your own.
+[Read the docs: MongoClientOptions](https://mongodb.github.io/node-mongodb-native/4.2/interfaces/MongoClientOptions.html)
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("mongodb4", {
+        category: "storage-input",
+        color: "#3FA037",
+        defaults: {
+            clientNode: { type: "mongodb4-client" },
+            mode: { value: "collection" },
+            collection: { value: "" },
+            operation: { value: "" },
+            output: { value: "toArray" },
+            maxTimeMS: { value: "0" },
+            handleDocId: { value: false },
+            name: { value: "" },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "db.svg",
+        label: function () {
+            return this.name || this.operation || "mongodb4";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="mongodb4">
+    <div class="form-row">
+        <label for="node-input-clientNode">
+            <i class="fa fa-server"></i> Connection
+        </label>
+        <input type="text" id="node-input-clientNode" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-mode">
+            <i class="fa fa-sitemap"></i> Mode
+        </label>
+        <select id="node-input-mode" style="width: calc(100% - 140px);">
+            <option value="collection">collection operation</option>
+            <option value="db">database operation</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-collection">
+            <i class="fa fa-archive"></i> Collection
+        </label>
+        <input
+            type="text"
+            id="node-input-collection"
+            placeholder="msg.collection"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-operation">
+            <i class="fa fa-code"></i> Operation
+        </label>
+        <input
+            type="text"
+            id="node-input-operation"
+            placeholder="msg.operation"
+        />
+    </div>
+    <div class="form-row">
+        <label for="node-input-output">
+            <i class="fa fa-sign-out"></i> Output
+        </label>
+        <select id="node-input-output" style="width: calc(100% - 140px);">
+            <option value="toArray">toArray</option>
+            <option value="forEach">forEach</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-maxTimeMS">
+            <i class="fa fa-clock-o"></i> MaxTimeMS
+        </label>
+        <input
+            type="number"
+            id="node-input-maxTimeMS"
+            placeholder="0"
+        />
+    </div>
+    <div class="form-row">
+        <input
+            type="checkbox"
+            id="node-input-handleDocId"
+            style="display: inline-block; width: auto; vertical-align: top;"
+        />
+        <label for="node-input-handleDocId" style="width: auto;"
+            >Handle document _id (deprecated)</label
+        >
+    </div>
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="fa fa-tag"></i> Name
+        </label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="mongodb4">
+Execute MongoDB collection operations with this node.
+
+### Inputs / Options
+
+-   **Connection (mongodb-client)** - Select a MongoDB database server connection.
+
+-   **Mode | msg.mode (string)** - Decide if you want to run a collection or db operation {'collection', 'db'}
+
+-   **Collection | msg.collection (string)** - MongoDB database collection.
+
+-   **Operation | msg.operation (string)** - Run a collection or database operation.
+
+Common collection operations are `find`, `findOne`, `insertOne`, `insertMany`, `updateOne`, `updateMany`, `deleteOne`, `deleteMany`, `aggregate` and more.
+
+`insert`, `update` and `delete` are deprecated and not supported by the latest mongodb driver version. Read the [upgrade instructions](https://github.com/steineey/node-red-contrib-mongodb4#upgrade-to-package-version-v2x) for more information.
+
+Common database operations are `command`, `ping`, `stats` and more.
+
+-   **msg.payload (array)** - Pass the CRUD operation arguments as message payload. Message payload has to be array type to pass multiple function arguments to a driver operation.
+
+Example `insertOne`:
+```js
+msg.payload = [{name: 'Anna', age: 1}];
+```
+
+Example `find`:
+```js
+// find query argument
+const query = {
+    age: 22
+};
+// find option argument
+const options = {
+    sort: {name: 1},
+    projection: {name: 1},
+    limit: 10,
+    skip: 2
+};
+// payload for mongodb4 node
+msg.payload = [query, options];
+return msg;
+```
+
+The payload array will be passed as function arguments for the MongoDB driver collection operation
+: `collection.find({age: 22}, {sort: {...}})`
+
+Another example for an aggregation call:
+```js
+// aggregation pipeline
+const pipeline = [{
+    $sort:{age: 1}
+}, {
+    $project: {
+        name: 1
+    }
+},{
+    $limit: 10
+}];
+// optional: aggregate options
+const options = {
+    allowDiskUse: true
+};
+// payload for mongodb4 node
+msg.payload = [pipeline, options];
+return msg;
+```
+
+In a simple aggregation call you have an array inside array like `msg.payload = [pipeline]`. This might be confusing, but I haven't found a better solution for that.
+
+-   **Output** - For `find` and `aggregate` operation. Choose `toArray` or `forEach` output type.
+
+-   **MaxTimeMS** - MaxTimeMS Specifies the maximum amount of time the server should wait for an operation to complete after it has reached the server. If an operation runs over the specified time limit, it returns a timeout error. Prevent long-running operations from slowing down the server by specifying a timeout value. Specifying 0 means no timeout.
+
+-   **Handle document \_id (deprecated)** - With this feature enabled, the operation node will search for \_id fields of type string to convert them into document \_id of type ObjectId. Be aware that not every _id field has to be a ObjectId field. Use this feature only if necessary. A better solution is to use  explicit BSON types in your query (Read: How to use BSON Types).
+
+The default MongoDB document identifier has to be of type ObjectId. This means the native driver expects query arguments like: `msg.payload = [{_id: new ObjectId("624b527d08e23628e99eb963")}]`
+
+This mongodb node can handle this for you. If the string is a valid ObjectId, it will be translated into a real ObjectId before executed by the native driver.
+So this will work:
+`msg.payload = [{_id: "624b527d08e23628e99eb963"}]`
+...and this will also work:
+`msg.payload = [{_id: {$in: ["624b527d08e23628e99eb963"]}}]`
+
+### More information about collection operations
+
+[Collection-API v5.9](https://mongodb.github.io/node-mongodb-native/5.9/classes/Collection.html)
+
+### Payload Output
+
+The node will output the database driver response as message payload.
+The operations `aggregate` and `find` can output with `toArray` or `forEach`.
+
+### How to use BSON data types with this Node
+
+You can use BSON types with this node.
+
+First enable "mongodb" in your function global context. Add this to your `settings.js` file - typically this file located in `~/.node-red`:
+```js
+functionGlobalContext: {
+    mongodb: require("node-red-contrib-mongodb4/node_modules/mongodb")
+},
+```
+This kind of require statement ensures that we use the BSON types from the mongodb driver used in this node. Otherwise we could run into compatibilty issues.
+
+You can now use BSON types in your function node like so:
+```js
+// get BSON types
+const {ObjectId, Double, Timestamp} = global.get("mongodb");
+// write your query
+msg.payload = [{
+    _id: new ObjectId() , 
+    value: new Double(1.4), 
+    ts: new Timestamp()
+}];
+// send them to the mongodb node
+return msg;
+```
+
+### More general driver information
+
+[Visit the MongoDB Driver Docs](https://www.mongodb.com/docs/drivers/node/v5.8/)
+</script>

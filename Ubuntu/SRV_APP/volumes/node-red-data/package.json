@@ -1,0 +1,10 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-mongodb4": "~2.5.2",
+        "node-red-dashboard": "~3.6.5"
+    }
+}
