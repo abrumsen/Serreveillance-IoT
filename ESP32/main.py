@@ -1,28 +1,33 @@
 import gc
-import network
-from time import sleep_us
-from machine import Pin, time_pulse_us
+import json
+from time import sleep_us, sleep
+from machine import Pin, time_pulse_us, ADC
+from umqtt.simple import MQTTClient
 
 # Garbage collection
 gc.collect()
 
-# Not possible to use getenv on esp32 :(
-WIFI_SSID = "HORTICONNECT-NET"
-WIFI_PASSWORD = "BrumsenKinet"
+# Static vars ----------------------------------
+CLIENT_NAME = "ESP-32-Horticonnect"
+BROKER_ADDR = "test.mosquitto.org"
+# ----------------------------------------------
 
-def connect_wifi():
-
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    if not wlan.isconnected():
-        print("Connecting to WiFi...")
-        wlan.connect(WIFI_SSID, WIFI_PASSWORD)
-        while not wlan.isconnected():
-            pass
-    print("Network config:", wlan.ifconfig())
+def send_mqtt(message, topic):
+    mqttc = MQTTClient(CLIENT_NAME, BROKER_ADDR, keepalive=60)
+    mqttc.connect()
+    mqttc.publish(topic.encode(), message.encode())
+    mqttc.disconnect()
 
 def get_brightness():
-    pass
+    # Retourne la luminosité en %
+    pin = Pin(35, Pin.IN)
+    adc = ADC(pin)
+    adc.atten(ADC.ATTN_0DB)
+    brightness = adc.read()/40.95 # Value ranges from 0-4095
+    # Envoie le résultat via mqtt
+    msg = {"client": CLIENT_NAME, "brightness (%)": brightness}
+    msg = json.dumps(msg)
+    send_mqtt(msg, CLIENT_NAME + "/brightness")
 
 def get_distance():
     # Retourne la distance en cm
@@ -35,13 +40,17 @@ def get_distance():
     sig = Pin(26, Pin.IN)
     t = time_pulse_us(sig, 1, 30000)
     distance = 340 * t // 20000
-    return distance
-
-def send_mqtt():
-    pass
+    # Envoie le résultat via mqtt
+    msg = {"client": CLIENT_NAME, "distance (cm)": distance}
+    msg = json.dumps(msg)
+    send_mqtt(msg, CLIENT_NAME + "/distance")
 
 def main():
-    connect_wifi()
+    while True:
+        get_distance()
+        sleep(30)
+        get_brightness()
+        sleep(30)
 
 if __name__ == '__main__':
     try:
