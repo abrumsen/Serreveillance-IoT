@@ -641,7 +641,7 @@
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
         "name": "Public - Brightness",
-        "topic": "ESP-32-Horticonnect/brightness",
+        "topic": "ESP-32-Horticonnect-Prototype/brightness",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "273291990701e3e2",
@@ -652,33 +652,15 @@
         "x": 290,
         "y": 820,
         "wires": [
-            [
-                "cbe2a9c47b433a39"
-            ]
+            []
         ]
-    },
-    {
-        "id": "cbe2a9c47b433a39",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 860,
-        "wires": []
     },
     {
         "id": "9d700ef422a8277f",
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
         "name": "Public - Distance",
-        "topic": "ESP-32-Horticonnect/distance",
+        "topic": "ESP-32-Horticonnect-Prototype/distance",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "273291990701e3e2",
@@ -689,9 +671,7 @@
         "x": 280,
         "y": 920,
         "wires": [
-            [
-                "cbe2a9c47b433a39"
-            ]
+            []
         ]
     },
     {
