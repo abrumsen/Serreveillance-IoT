@@ -33,7 +33,7 @@ services:
     container_name: mosquitto
     ports:
       - "1883:1883"
-      - "9001:9001"  # Optional WebSocket port
+      - "9001:9001"
     networks:
       - node-red-net
     volumes:
