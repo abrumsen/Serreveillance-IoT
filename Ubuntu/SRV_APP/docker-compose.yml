@@ -13,6 +13,7 @@ services:
       - node-red-net
     volumes:
       - ./volumes/node-red-data:/data
+    command: ["chmod -R 777 /data/"]
     depends_on:
       - mongodb
       - mosquitto

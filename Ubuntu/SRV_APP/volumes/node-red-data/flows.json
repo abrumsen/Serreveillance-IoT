@@ -653,25 +653,9 @@
         "y": 820,
         "wires": [
             [
-                "cbe2a9c47b433a39"
+                "b8f166cc8b71f5a2"
             ]
         ]
-    },
-    {
-        "id": "cbe2a9c47b433a39",
-        "type": "debug",
-        "z": "f6f2187d.f17ca8",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 860,
-        "wires": []
     },
     {
         "id": "9d700ef422a8277f",
@@ -690,8 +674,46 @@
         "y": 920,
         "wires": [
             [
-                "cbe2a9c47b433a39"
+                "b8f166cc8b71f5a2"
             ]
+        ]
+    },
+    {
+        "id": "b8f166cc8b71f5a2",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Format Sensors Data",
+        "func": "let data = msg.payload;\nlet table = msg.topic\nlet query = msg.operation\n\nif (data.Data) {\n    let now = new Date();\n    let formattedDate = now.toLocaleString(\"en-GB\", {\n        day: \"2-digit\",\n        month: \"2-digit\",\n        year: \"numeric\",\n        hour: \"2-digit\",\n        minute: \"2-digit\",\n        hour12: false\n    });\n\n    data.Data.Date = formattedDate;\n}\n\n    let now = new Date();\n    data.Data.Date = now;\n\nquery = \"insertOne\"\n\nmsg.collection = table\nmsg.operation = query\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 880,
+        "wires": [
+            [
+                "810a689da4a53d9f"
+            ]
+        ]
+    },
+    {
+        "id": "810a689da4a53d9f",
+        "type": "mongodb4",
+        "z": "f6f2187d.f17ca8",
+        "clientNode": "21dc0fbd8321f4d5",
+        "mode": "collection",
+        "collection": "",
+        "operation": "",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "Mongo4",
+        "x": 920,
+        "y": 880,
+        "wires": [
+            []
         ]
     },
     {
