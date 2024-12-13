@@ -7,9 +7,11 @@ import serial
 # Define ports
 button_pin = 3
 led_pin = 4
+buzzer_pin = 2  # Add a buzzer on pin D5
 
 grovepi.pinMode(button_pin, "INPUT")
 grovepi.pinMode(led_pin, "OUTPUT")
+grovepi.pinMode(buzzer_pin, "OUTPUT")
 
 # Serial for RFID
 ser = serial.Serial("/dev/ttyS0", baudrate=9600, timeout=1)
@@ -26,7 +28,7 @@ lcd_colors = [
 
 # Variables for RFID and Button Handling
 last_auth_time = None
-auth_duration = timedelta(minutes=1)  # Valid for 10 minutes
+auth_duration = timedelta(minutes=10)  # Valid for 10 minutes
 authorized_card = "E30840"  # Replace with the actual card ID
 
 def read_rfid():
@@ -55,6 +57,12 @@ def is_authorized():
         return True
     return False
 
+def sound_buzzer():
+    """Sounds the buzzer briefly."""
+    grovepi.digitalWrite(buzzer_pin, 1)
+    time.sleep(0.5)
+    grovepi.digitalWrite(buzzer_pin, 0)
+
 try:
     print("System initialized. Waiting for RFID...")
     update_lcd(messages[1], lcd_colors[1])  # Prompt to scan RFID
@@ -71,6 +79,7 @@ try:
                 print("Access Granted!")
                 last_auth_time = datetime.now()
                 update_lcd(messages[2], lcd_colors[0])  # Access Granted
+                sound_buzzer()
             else:
                 print("Access Denied!")
                 update_lcd(messages[3], lcd_colors[1])  # Access Denied
@@ -102,6 +111,7 @@ except KeyboardInterrupt:
     grove_rgb_lcd.setText("")
     grove_rgb_lcd.setRGB(0, 0, 0)
     grovepi.digitalWrite(led_pin, 0)
+    grovepi.digitalWrite(buzzer_pin, 0)
 except Exception as e:
     print(f"Error: {e}")
 
