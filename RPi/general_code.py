@@ -7,7 +7,7 @@ import serial
 # Define ports
 button_pin = 3
 led_pin = 4
-buzzer_pin = 2  # Add a buzzer on pin D5
+buzzer_pin = 2 
 
 grovepi.pinMode(button_pin, "INPUT")
 grovepi.pinMode(led_pin, "OUTPUT")
@@ -22,14 +22,14 @@ messages = [
     "Welcome!", "Scan your card!", "Access Granted!", "Access Denied!"
 ]
 lcd_colors = [
-    [0, 255, 0],  # Green
-    [255, 0, 0],  # Red
+    [0, 255, 0],
+    [255, 0, 0],
 ]
 
 # Variables for RFID and Button Handling
 last_auth_time = None
-auth_duration = timedelta(minutes=10)  # Valid for 10 minutes
-authorized_card = "E30840"  # Replace with the actual card ID
+auth_duration = timedelta(minutes=10)
+authorized_card = "E30840"
 
 def read_rfid():
     """Reads RFID and returns the card ID."""
@@ -65,10 +65,10 @@ def sound_buzzer():
 
 try:
     print("System initialized. Waiting for RFID...")
-    update_lcd(messages[1], lcd_colors[1])  # Prompt to scan RFID
+    update_lcd(messages[1], lcd_colors[1])
 
     while True:
-        blink_led()  # Keep-alive LED
+        blink_led()
 
         # Check for RFID scan
         if ser.in_waiting > 0:
@@ -78,29 +78,29 @@ try:
             if scanned_card == authorized_card:
                 print("Access Granted!")
                 last_auth_time = datetime.now()
-                update_lcd(messages[2], lcd_colors[0])  # Access Granted
+                update_lcd(messages[2], lcd_colors[0])
                 sound_buzzer()
             else:
                 print("Access Denied!")
-                update_lcd(messages[3], lcd_colors[1])  # Access Denied
+                update_lcd(messages[3], lcd_colors[1])
             time.sleep(2)
             # Only reset LCD to "Scan your card" if not authorized
             if not is_authorized():
-                update_lcd(messages[1], lcd_colors[1])  # Prompt again
+                update_lcd(messages[1], lcd_colors[1])
 
         # Check button press
         button_state = grovepi.digitalRead(button_pin)
         if button_state == 1:
-            time.sleep(0.2)  # Debounce the button press
-            if grovepi.digitalRead(button_pin) == 1:  # Confirm button press
+            time.sleep(0.2)
+            if grovepi.digitalRead(button_pin) == 1:
                 if is_authorized():
                     print("Button Pressed - Action Authorized")
                     update_lcd("Action OK!", lcd_colors[0])
-                    time.sleep(5)  # Show final message longer
+                    time.sleep(5)
                 else:
                     print("Unauthorized Button Press")
                     update_lcd("Scan Card First!", lcd_colors[1])
-                    time.sleep(2)  # Allow message to linger
+                    time.sleep(2)
 
             # Wait for button release
             while grovepi.digitalRead(button_pin) == 1:
