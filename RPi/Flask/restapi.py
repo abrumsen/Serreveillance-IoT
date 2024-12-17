@@ -7,7 +7,7 @@ API_KEY = getenv("FLASK_API_KEY")
 
 app = Flask(__name__)
 @app.route('/system_usage', methods=['GET'])
-def get_time():
+def get_sys_usage():
     try:
         api_key = request.headers.get('x-api-key')
         if api_key != API_KEY:
@@ -44,4 +44,4 @@ def get_time():
         return {"error": str(e)}, 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
