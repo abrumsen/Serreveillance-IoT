@@ -4,10 +4,15 @@ from machine import Pin, ADC, time_pulse_us
 from umqtt.simple import MQTTClient
 import _thread
 
+CLIENT_ID = "Client_1"
+SERRE_ID = "Serre_1"
+SERVER = "192.168.1.110"
+
 class SensorPublisher:
-    def __init__(self, client_id, server, port=1883, keepalive=300):
+    def __init__(self, client_id, serre_id, server, port=1883, keepalive=300):
         """Initialize MQTT connection parameters"""
         self.client_id = client_id
+        self.serre_id = serre_id
         self.server = server
         self.port = port
         self.keepalive = keepalive
@@ -18,7 +23,7 @@ class SensorPublisher:
         """Establish MQTT connection"""
         try:
             self.mqtt_client = MQTTClient(
-                self.client_id, 
+                "ESP32-Horticonnect-Prototype", 
                 self.server, 
                 keepalive=self.keepalive, 
                 port=self.port
@@ -53,12 +58,13 @@ class SensorPublisher:
                 brightness = round(adc.read() / 40.95, 1) # Value ranges from 0-4095
                 
                 msg = dumps({
-                    "client": self.client_id, 
+                    "client": self.client_id,
+                    "serre": self.serre_id,
                     "brightness (%)": brightness
                 })
                 
                 self.publish_message(
-                    "ESP-32-Horticonnect-Prototype/brightness", 
+                    "ESP32-Horticonnect-Prototype/brightness", 
                     msg
                 )
             except Exception as e:
@@ -83,11 +89,12 @@ class SensorPublisher:
                 
                 msg = dumps({
                     "client": self.client_id, 
+                    "serre": self.serre_id,
                     "distance (cm)": distance
                 })
                 
                 self.publish_message(
-                    "ESP-32-Horticonnect-Prototype/distance", 
+                    "ESP32-Horticonnect-Prototype/distance", 
                     msg
                 )
             except Exception as e:
@@ -121,8 +128,9 @@ class SensorPublisher:
 
 def main():
     sensor_pub = SensorPublisher(
-        "ESP-32-Horticonnect-Prototype", 
-        "192.168.1.5"
+        CLIENT_ID,
+        SERRE_ID,
+        SERVER
     )
     sensor_pub.start_monitoring()
 

@@ -1,7 +1,7 @@
 import network
 
-WIFI_SSID = "blah"
-WIFI_PASSWORD = "blah"
+WIFI_SSID = "Horticonnect-NET"
+WIFI_PASSWORD = "BrumsenKinet"
 
 def connect():
     wlan = network.WLAN(network.STA_IF)
