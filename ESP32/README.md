@@ -23,6 +23,7 @@ ampy -p /dev/ttyUSB0 ls
 ampy -p /dev/ttyUSB0 get boot.py
 ampy -p /dev/ttyUSB0 put monprogramme.py main.py
 # Commandes pour notre setup:
+ampy -p /dev/ttyUSB0 put cert.py cert.py
 ampy -p /dev/ttyUSB0 put boot.py boot.py
 ampy -p /dev/ttyUSB0 put main.py main.py
 ```

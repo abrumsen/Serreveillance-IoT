@@ -3,13 +3,15 @@ from time import sleep, sleep_us
 from machine import Pin, ADC, time_pulse_us
 from umqtt.simple import MQTTClient
 import _thread
+from cert import ROOT_CA
 
 CLIENT_ID = "Client_1"
 SERRE_ID = "Serre_1"
-SERVER = "192.168.1.110"
+#SERVER = "192.168.1.110"
+SERVER = "broker.hivemq.com"
 
 class SensorPublisher:
-    def __init__(self, client_id, serre_id, server, port=1883, keepalive=300):
+    def __init__(self, client_id, serre_id, server, port=8883, keepalive=300):
         """Initialize MQTT connection parameters"""
         self.client_id = client_id
         self.serre_id = serre_id
@@ -26,7 +28,9 @@ class SensorPublisher:
                 "ESP32-Horticonnect-Prototype", 
                 self.server, 
                 keepalive=self.keepalive, 
-                port=self.port
+                port=self.port,
+                ssl=True,
+                ssl_params={"cadata": ROOT_CA}
             )
             self.mqtt_client.connect()
         except Exception as e:
@@ -70,7 +74,7 @@ class SensorPublisher:
             except Exception as e:
                 print("Brightness sensor error:", e)
             
-            sleep(60) # Wait 1 minute between readings
+            sleep(60)
     
     def get_distance(self):
         """Get distance and publish via MQTT every minute"""
@@ -100,7 +104,7 @@ class SensorPublisher:
             except Exception as e:
                 print("Distance sensor error:", e)
             
-            sleep(60) # Wait 1 minute between readings
+            sleep(60)
     
     def start_monitoring(self):
         """Start threads for brightness and distance sensors"""
@@ -122,7 +126,7 @@ class SensorPublisher:
                         self.mqtt_client.ping()
                 except:
                     self.connect_mqtt()
-                sleep(30)  # Check connection every 30 seconds
+                sleep(30)
         except Exception as e:
             print("Error in main thread:", e)
 
