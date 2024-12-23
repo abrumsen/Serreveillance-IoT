@@ -1,22 +1,23 @@
 from flask import Flask, jsonify, request, abort
-import pymongo
+#import pymongo
 
-mongoclient = pymongo.MongoClient("mongodb://10.43.26.51:27017/")
-db = mongoclient["MQTT-Data"]
-col = db["USERS"]
+#mongoclient = pymongo.MongoClient("mongodb://10.43.26.51:27017/")
+#db = mongoclient["MQTT-Data"]
+#col = db["USERS"]
 API_KEY = "test"
-AUTHORIZED_CARDS = ["good_card"]
+AUTHORIZED_CARDS = ["validcard"]
 
 app = Flask(__name__)
-@app.route('/auth', methods=['GET']) # Requests should look like .../auth?id=<id>
+@app.route('/auth', methods=['GET']) # Requests should look like .../auth?id=<id>&client=<client>
 def get_auth():
     try:
-        api_key = request.headers.get('x-api-key')
+        api_key = request.headers.get("x-api-key")
         if api_key != API_KEY:
             abort(401) # Unauthorized api key
-        scanned_card = request.args.get('id')
-        if scanned_card in AUTHORIZED_CARDS: # Authorized api key and card id
-            response = {"scannedCardId" : scanned_card, "isAuthorized" : True, "user": str(col.find_one())}
+        scanned_card = request.args.get("id")
+        client = request.args.get("client")
+        if scanned_card in AUTHORIZED_CARDS: # Authorized api key and card id : should be done with a DB query
+            response = {"scannedCardId" : scanned_card, "isAuthorized" : True, "user": client}
             return jsonify(response)
         else:
             abort(401) # Unauthorized card id
