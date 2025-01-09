@@ -40,7 +40,16 @@ services:
     volumes:
       - ./volumes/mosquitto:/etc/mosquitto
       - ./volumes/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
-
+  
+  restapi:
+    build:
+      context: REST_API
+      dockerfile: Dockerfile
+    container_name: restapi
+    ports:
+      - "5000:5000"
+    networks:
+      - node-red-net
 
 volumes:
   node-red-data:

@@ -7,7 +7,7 @@ from cert import ROOT_CA
 
 CLIENT_ID = "Client_1"
 SERRE_ID = "Serre_1"
-#SERVER = "192.168.1.110"
+#SERVER = "192.168.0.100"
 SERVER = "broker.hivemq.com"
 
 class SensorPublisher:
