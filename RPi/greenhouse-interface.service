@@ -1,0 +1,19 @@
+[Unit]
+Description=Greenhouse interface menu
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=root
+Group=dialout
+WorkingDirectory=/home/pi/Horticonnect/
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /home/pi/Horticonnect/main_interface.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/greenhouse-interface.log
+StandardError=append:/var/log/greenhouse-interface.error.log
+
+[Install]
+WantedBy=multi-user.target

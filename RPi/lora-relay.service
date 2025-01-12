@@ -1,0 +1,19 @@
+[Unit]
+Description=LoRa to MQTT Relay Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=pi
+Group=dialout
+WorkingDirectory=/home/pi/Horticonnect
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /home/pi/Horticonnect/get_lora.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/lora-relay.log
+StandardError=append:/var/log/lora-relay.error.log
+
+[Install]
+WantedBy=multi-user.target
